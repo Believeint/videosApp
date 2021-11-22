@@ -1,3 +1,4 @@
+import { IFilmes } from './../models/IFilmes.module';
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
@@ -5,31 +6,59 @@ import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page {
+  titulo = 'Vídeos';
 
-  constructor(public alertController: AlertController, public toastController: ToastController) {}
+  listaVideos: IFilmes[] = [
+    {
+      nome: 'Mortal Kombat(2021)',
+      lancamento: '15/04/2021',
+      duracao: '1h 50m',
+      classificacao: 76,
+      cartaz: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/44aCR6cjH0FbzW6PMw3Ega178iW.jpg',
+      generos: ['Ação', 'Fantasia', 'Aventura']
+    },
+    {
+      nome: 'Liga da Justiça de Zack Snyder (2021)',
+      lancamento: '18/03/2021',
+      duracao: '4h 2m',
+      classificacao: 76,
+      cartaz: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ArWn6gCi61b3b3hclD2L0LOk66k.jpg',
+      generos: ['Ação', 'Fantasia', 'Aventura', 'Ficção científica']
+    },
+  ];
+
+  constructor(
+    public alertController: AlertController,
+    public toastController: ToastController
+  ) {}
 
   async exibirAlertaFavoritar() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Confirmar!',
       message: 'Deseja favoritar <strong>filme</strong>!!!',
-      buttons: [{
-        text: 'Cancelar',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: (blah) => {
-          console.log('Cancelou confirma��o: blah' + console.log(this.alertController));
-        }
-      }, {
-        text: 'Sim',
-        handler: () => {
-          this.apresentarToastFavorito();
-          console.log('Confirmou');
-        }
-      }],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log(
+              'Cancelou confirma��o: blah' + console.log(this.alertController)
+            );
+          },
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            this.apresentarToastFavorito();
+            console.log('Confirmou');
+          },
+        },
+      ],
     });
 
     await alert.present();
@@ -39,9 +68,8 @@ export class Tab1Page {
     const toast = await this.toastController.create({
       message: 'Serie favoritada.',
       duration: 2000,
-      color: 'success'
+      color: 'success',
     });
     toast.present();
   }
-
 }
