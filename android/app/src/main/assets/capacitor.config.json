@@ -2,8 +2,5 @@
 	"appId": "dz.ionic.starter",
 	"appName": "videosApp",
 	"webDir": "www",
-	"bundledWebRuntime": false,
-	"server": {
-		"url": "http://192.168.15.6:8101"
-	}
+	"bundledWebRuntime": false
 }
